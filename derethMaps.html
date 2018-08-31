@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
 <!-- SelectBox jquery from https://github.com/harvesthq/chosen -->
 <html>
-    <head>
+
+<head>
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="derethMaps.css">
     <link rel="stylesheet" href="dropSearch/docsupport/style.css">
     <link rel="stylesheet" href="dropSearch/docsupport/prism.css">
     <link rel="stylesheet" href="dropSearch/chosen.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js" type="text/javascript"></script>
-    
-	   <script type="text/javascript" src="derethMaps.js"></script>
-    </head>
+
+    <script type="text/javascript" src="derethMaps.js"></script>
+</head>
+
 <body id="body" onresize="displayResize()" style="align-content:center; padding-left:15px;">
     <img src="images/derethMapsLogo.png" alt="derethMaps Logo" style="height:35px;" />
     <br />
@@ -21,7 +23,7 @@
             <button onclick="copyToClipboard();">Copy Coords</button>
             <br />
             <br />
-            <div id="menuItems" style="float:left; z-index:1; padding-left: 15px;">
+            <div id="menuItems" style="z-index:1; padding-left: 15px;">
                 <div>
                     <input type="checkbox" id="DisplayTown" value="Town" checked="checked" /> Show Towns<br />
                     <input type="checkbox" id="DisplayHousing" value="Housing" />Show Housing<br />
@@ -71,4 +73,5 @@
     <div style="clear:both;"></div>
     <footer style="text-align:center;">Powered by <a href="http://www.thwargle.com" title="Thwargle.com">Thwargle Games</a> - Mob Overlays Courtesy of <a href="http://mobtracker.yewsplugins.com" title="Mob Tracker">Yew Wan Sum</a></footer>
 </body>
+
 </html>
