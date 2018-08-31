@@ -10,34 +10,36 @@ body {
     height: 99%;
 }
 
-
-/*
-#DerethMapControls>div {
-    margin: 0px 10px;
-}
-
-#DerethMapControls>#dmc_left {
-    float: left;
-}
-
-#DerethMapControls>#dmc_right {
-    float: right;
-}
-*/
-
 #PlayerList {
     display: none;
-    /*
-    background-color: rgba(0, 0, 0, .4);
-    padding: 5px;
-    border-radius: 3px;
-    */
     padding-left: 5px;
 }
 
-#PlayerList>#Players {}
+#PlayerList>#PlayerBtns span.textBtn {
+    display: inline-block;
+    vertical-align: text-top;
+}
 
-#PlayerList>#Players>.Player {}
+#PlayerList .PlayerDetails {
+    display: none;
+}
+
+#PlayerList .PlayerDetails .PD_Info:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+#PlayerList .PlayerDetails .PD_Key {
+    float: left;
+    width: 100px;
+}
+
+#PlayerList .PlayerDetails .PD_Val {
+    float: left;
+}
 
 #buttonWrapper {
     position: absolute;

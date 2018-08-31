@@ -10,6 +10,7 @@ var gridCount = 256;
 var displayMenu = true;
 var copyCoords = "";
 
+
 // dimensions of the map image we have
 var imgWidth = 2041;
 var imgHeight = 2041;
@@ -332,7 +333,11 @@ function getDynamicPlayers() {
                 var x = decodeMapString(sx);
                 var y = decodeMapString(sy);
 
-                var point = { Type: json[i].Type, Location: json[i].LocationName, Race: json[i].Race, x: x, y: y };
+                //var point = { Type: json[i].Type, Location: json[i].LocationName, Race: json[i].Race, x: x, y: y };
+                var point = json[i];
+                point.Location = json[i].LocationName;
+                point.x = x;
+                point.y = y;
                 dPoints.push(point);
             }
             reloadLocationArray(dPoints);
@@ -542,7 +547,8 @@ function collides(x, y) {
             left <= x &&
             bottom >= y &&
             top <= y) {
-            var playerData = { 'Name': player.Location, 'Type': player.Type, 'Description': player.Race };
+            var playerData = player;
+            playerData.Name = player.Location;
             getPlayerDataHtml(playerData);
         }
     }
@@ -602,13 +608,47 @@ function getPlayerDataHtml(player) {
         // Call function just to clear the data
         PlayerList.hide();
         PlayerList.find(".Player").remove();
+        PlayerList.find(".PlayerDetails").remove();
         return;
     }
     PlayerList.show();
     var pName = player.Name;
-    var tsSearch = "http://treestats.net/search?server=All+Servers&character=" + pName;
     var ListPlayer = "<option class='Player'>" + pName + "</option>";
     PlayerList.find('#Players').append(ListPlayer);
+    PlayerList.find('#PlayerDetails').append(PlayerSetServerDetails(player));
+}
+
+function PlayerSearchTreeStats() {
+    var pName = $('#Players').val();
+    var tsSearch = "http://treestats.net/search?server=All+Servers&character=" + pName;
+    window.open(tsSearch, '_blank');
+}
+
+function PlayerSetServerDetails(player) {
+    console.log(player);
+    var div = "";
+    pName = player.Name;
+    div += "<div class=\"PlayerDetails\" Player=\"" + pName + "\">";
+    div += "   <div class=\"PD_Info\">";
+    div += "      <div class=\"PD_Key\">Character</div>";
+    div += "      <div class=\"PD_Val\">" + pName + "</div>";
+    div += "   </div>"
+    div += "   <div class=\"PD_Info\">";
+    div += "      <div class=\"PD_Key\">Level</div>";
+    div += "      <div class=\"PD_Val\">" + player.Level + "</div>";
+    div += "   </div>"
+    div += "   <div class=\"PD_Info\">";
+    div += "      <div class=\"PD_Key\">Race</div>";
+    div += "      <div class=\"PD_Val\">" + player.Race + "</div>";
+    div += "   </div>"
+    div += "</div>"
+    return div;
+}
+
+function PlayerGetServerDetails() {
+    var pName = $('#Players').val();
+    $('#PlayerDetails').find('.PlayerDetails').hide();
+    $('#PlayerDetails').find('.PlayerDetails[Player="' + pName + '"]').show();
 }
 
 function colorLandblocks(context) {
