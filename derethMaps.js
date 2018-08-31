@@ -126,6 +126,7 @@ function logLocation(canvas, scale, translatePos) {
     var w1 = canvas.width / scale;
     var h1 = canvas.height / scale;
 }
+
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -141,7 +142,7 @@ function includesSubstring(x, sub) {
 function getMobList() {
     mobList = new Array();
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             mobList = this.responseText.split(/\n/);
             for (var i = 0; i < mobList.length; i++) {
@@ -149,10 +150,9 @@ function getMobList() {
                 var mobOption = new Option(mobText, mobText);
                 $('#mobList').append(mobOption);
             }
-            $.getScript("dropSearch/chosen.jquery.js", function (data, textStatus, jqxhr) {
-                $.getScript("dropSearch/docsupport/prism.js", function (data, textStatus, jqxhr) {
-                    $.getScript("dropSearch/docsupport/init.js", function (data, textStatus, jqxhr) {
-                    });
+            $.getScript("dropSearch/chosen.jquery.js", function(data, textStatus, jqxhr) {
+                $.getScript("dropSearch/docsupport/prism.js", function(data, textStatus, jqxhr) {
+                    $.getScript("dropSearch/docsupport/init.js", function(data, textStatus, jqxhr) {});
                 });
             });
         }
@@ -163,7 +163,7 @@ function getMobList() {
 
 function getNPCList() {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 
 
@@ -179,10 +179,9 @@ function getNPCList() {
                 npcDict[name] = npcobj;
             }
 
-            $.getScript("dropSearch/chosen.jquery.js", function (data, textStatus, jqxhr) {
-                $.getScript("dropSearch/docsupport/prism.js", function (data, textStatus, jqxhr) {
-                    $.getScript("dropSearch/docsupport/init.js", function (data, textStatus, jqxhr) {
-                    });
+            $.getScript("dropSearch/chosen.jquery.js", function(data, textStatus, jqxhr) {
+                $.getScript("dropSearch/docsupport/prism.js", function(data, textStatus, jqxhr) {
+                    $.getScript("dropSearch/docsupport/init.js", function(data, textStatus, jqxhr) {});
                 });
             });
         }
@@ -194,7 +193,7 @@ function getNPCList() {
 function getPoints() {
     poiDict = {};
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var json = JSON.parse(this.responseText);
             var totalItems = Object.keys(json).length;
@@ -207,8 +206,7 @@ function getPoints() {
                     if (includesSubstring(x, 'E')) {
                         x = x.substring(0, x.length - 1);
                         x = x * 1;
-                    }
-                    else {
+                    } else {
                         xInt = x.substring(0, x.length - 1);
                         x = xInt * -1;
                     }
@@ -217,13 +215,11 @@ function getPoints() {
                     if (includesSubstring(y, 'S')) {
                         y = y.substring(0, y.length - 1);
                         y = y * 1;
-                    }
-                    else {
+                    } else {
                         yInt = y.substring(0, y.length - 1);
                         y = yInt * -1;
                     }
-                }
-                else {
+                } else {
                     var locationString = json[i].locationString;
 
                     // Figure out landblock coordinates
@@ -273,7 +269,7 @@ function getPoints() {
 function getHousingPoints() {
     points = new Array();
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var json = JSON.parse(this.responseText);
             var totalItems = Object.keys(json).length;
@@ -289,8 +285,7 @@ function getHousingPoints() {
                 if (includesSubstring(x, 'E')) {
                     x = x.substring(0, x.length - 1);
                     x = x * 1;
-                }
-                else {
+                } else {
                     xInt = x.substring(0, x.length - 1);
                     x = xInt * -1;
                 }
@@ -299,8 +294,7 @@ function getHousingPoints() {
                 if (includesSubstring(y, 'S')) {
                     y = y.substring(0, y.length - 1);
                     y = y * 1;
-                }
-                else {
+                } else {
                     yInt = y.substring(0, y.length - 1);
                     y = yInt * -1;
                 }
@@ -327,7 +321,7 @@ function getHousingPoints() {
 function getDynamicPlayers() {
     dPoints = new Array();
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var json = JSON.parse(this.responseText);
             var totalItems = Object.keys(json).length;
@@ -353,13 +347,13 @@ function decodeMapString(mstr) {
     if (includesSubstring(mstr, 'E') || includesSubstring(mstr, 'S')) {
         val = mstr.substring(0, mstr.length - 1);
         val = val * 1;
-    }
-    else {
+    } else {
         val = mstr.substring(0, mstr.length - 1);
         val = val * -1;
     }
     return val;
 }
+
 function reloadLocationArray(dPoints) {
     locationArray = {};
     var dPointsArrayLength = dPoints.length;
@@ -379,12 +373,15 @@ function reloadLocationArray(dPoints) {
         }
     }
 }
+
 function scoords(x, y) {
     return sdisp2(x).toString() + ", " + sdisp2(y).toString();
 }
+
 function sdisp2(val) {
     return Math.round(val * 100) / 100;
 }
+
 function drawPoint(context, x, y, width, Type, Race, Special, isHighlighted, isLandblock) {
     // Convert map coordinates to canvas coordinates
     var canx = d * x + e;
@@ -397,23 +394,18 @@ function drawPoint(context, x, y, width, Type, Race, Special, isHighlighted, isL
             town_image = new Image();
             if (Race == "Aluvian") {
                 town_image.src = 'images/Map_Point_Aluv_Town.png';
-            }
-            else if (Race == "Sho") {
+            } else if (Race == "Sho") {
                 town_image.src = 'images/Map_Point_Sho_Town.png';
-            }
-            else if (Race == "Gharu'ndim") {
+            } else if (Race == "Gharu'ndim") {
                 town_image.src = 'images/Map_Point_Gharu_Town.png';
-            }
-            else if (Race == "Viamontian") {
+            } else if (Race == "Viamontian") {
                 town_image.src = 'images/castleTower.png';
-            }
-            else {
+            } else {
                 town_image.src = 'images/Map_Point_Town.png';
             }
             context.drawImage(town_image, canx - rectWidth / 2, cany - rectWidth / 2, rectWidth, rectWidth);
         }
-    }
-    else if (Type == "Cottages" || Type == "Housing") {
+    } else if (Type == "Cottages" || Type == "Housing") {
         if (document.getElementById("DisplayHousing").checked) {
             context.beginPath();
             context.arc(canx, cany, circleRadius, 0, 2 * Math.PI);
@@ -424,15 +416,13 @@ function drawPoint(context, x, y, width, Type, Race, Special, isHighlighted, isL
             context.stroke();
             context.closePath();
         }
-    }
-    else if (Type == "Player") {
+    } else if (Type == "Player") {
         if (document.getElementById("DisplayPlayer").checked) {
             player_image = new Image();
             player_image.src = 'images/playerHead.png';
             context.drawImage(player_image, canx - rectWidth / 2, 1 + cany - rectWidth / 2, rectWidth, rectWidth);
         }
-    }
-    else if (Type == "WikiNPC") {
+    } else if (Type == "WikiNPC") {
         context.beginPath();
         context.arc(canx, cany, circleRadius, 0, 2 * Math.PI);
         context.fillStyle = '#FF0080';
@@ -451,6 +441,7 @@ function drawPoint(context, x, y, width, Type, Race, Special, isHighlighted, isL
         context.globalAlpha = oldAlpha;
     }
 }
+
 function clearSelection() {
     highlightedDynPoint = -1;
     highlightedPoint = -1;
@@ -461,11 +452,13 @@ function clearSelection() {
     collisionElement.innerHTML = "";
     var landblockElement = document.getElementById("LandblockInfo");
     landblockElement.innerHTML = "";
+    $("#PlayerList").hide();
     document.getElementsByClassName("chosen-single").innerHTML = "None";
 
     //var threeSixtyView = document.getElementById("360");
     //threeSixtyView.src = "";
 }
+
 function collides(x, y) {
     var isCollision = false;
     var isLandblock = false;
@@ -481,22 +474,22 @@ function collides(x, y) {
             continue;
         }
 
-        var left = poitem.x - (1 / Math.sqrt(scale)), right = poitem.x + (1 / Math.sqrt(scale));
-        var top = poitem.y - (1 / Math.sqrt(scale)), bottom = poitem.y + (1 / Math.sqrt(scale));
-        if (right >= x
-            && left <= x
-            && bottom >= y
-            && top <= y) {
+        var left = poitem.x - (1 / Math.sqrt(scale)),
+            right = poitem.x + (1 / Math.sqrt(scale));
+        var top = poitem.y - (1 / Math.sqrt(scale)),
+            bottom = poitem.y + (1 / Math.sqrt(scale));
+        if (right >= x &&
+            left <= x &&
+            bottom >= y &&
+            top <= y) {
             isCollision = true;
             isLandblock = true;
 
             if (type == "Landblock") {
                 landblockDynPoint = true;
-            }
-            else if (type == "Town" && document.getElementById("DisplayTown").checked) {
+            } else if (type == "Town" && document.getElementById("DisplayTown").checked) {
                 getPointDataHTML(poitem);
-            }
-            else if (type == "Housing" && document.getElementById("DisplayHousing").checked) {
+            } else if (type == "Housing" && document.getElementById("DisplayHousing").checked) {
                 getPointDataHTML(poitem);
             }
         }
@@ -509,7 +502,7 @@ function collides(x, y) {
         var npc = npcDict[npcName];
         var keys = Object.keys(npc);
 
-        var getKeys = function (obj) {
+        var getKeys = function(obj) {
             var keys = [];
             for (var key in obj) {
                 keys.push(key);
@@ -521,17 +514,36 @@ function collides(x, y) {
             var npcy = decodeMapString(splitCoords[0]);
             var npcx = decodeMapString(splitCoords[1]);
 
-            var left = npcx - (1 / Math.sqrt(scale)), right = npcx + (1 / Math.sqrt(scale));
-            var top = npcy - (1 / Math.sqrt(scale)), bottom = npcy + (1 / Math.sqrt(scale));
+            var left = npcx - (1 / Math.sqrt(scale)),
+                right = npcx + (1 / Math.sqrt(scale));
+            var top = npcy - (1 / Math.sqrt(scale)),
+                bottom = npcy + (1 / Math.sqrt(scale));
 
-            if (right >= x
-                && left <= x
-                && bottom >= y
-                && top <= y) {
+            if (right >= x &&
+                left <= x &&
+                bottom >= y &&
+                top <= y) {
                 isCollision = true;
                 var poitem = { 'LocationName': npc.Name, 'Type': npc.Type, 'Description': npc.Description };
                 getPointDataHTML(poitem);
             }
+        }
+    }
+
+    getPlayerDataHtml(null); //Clear the player list data
+    var player;
+    for (var pc in dPoints) {
+        player = dPoints[pc];
+        var left = player.x - (1 / Math.sqrt(scale)),
+            right = player.x + (1 / Math.sqrt(scale));
+        var top = player.y - (1 / Math.sqrt(scale)),
+            bottom = player.y + (1 / Math.sqrt(scale));
+        if (right >= x &&
+            left <= x &&
+            bottom >= y &&
+            top <= y) {
+            var playerData = { 'Name': player.Location, 'Type': player.Type, 'Description': player.Race };
+            getPlayerDataHtml(playerData);
         }
     }
 
@@ -578,11 +590,25 @@ function getPointDataHTML(poitem) {
     if (threeSixtySource == "GlendenWood.html") {
         //threeSixtyView.src = threeSixtySource;
         //document.getElementById("iframeHolder").style.display = "block";
-    }
-    else {
+    } else {
         //threeSixtyView.src = "";
         //document.getElementById("iframeHolder").style.display = "none";
     }
+}
+
+function getPlayerDataHtml(player) {
+    var PlayerList = $("#PlayerList");
+    if (player == null) {
+        // Call function just to clear the data
+        PlayerList.hide();
+        PlayerList.find(".Player").remove();
+        return;
+    }
+    PlayerList.show();
+    var pName = player.Name;
+    var tsSearch = "http://treestats.net/search?server=All+Servers&character=" + pName;
+    var ListPlayer = "<option class='Player'>" + pName + "</option>";
+    PlayerList.find('#Players').append(ListPlayer);
 }
 
 function colorLandblocks(context) {
@@ -612,6 +638,7 @@ function colorLandblocks(context) {
         }
     }
 }
+
 function drawGrid() {
     var linewidth = 0.5;
 
@@ -640,11 +667,13 @@ function drawGrid() {
         context.stroke();
     }
 }
+
 function mapToCanvas(mx, my) {
     var canx = d * mx + e;
     var cany = a * my + b;
     return { x: canx, y: cany };
 }
+
 function getLandblock(mx, my) {
     var xfract = (mx - (-101.9)) / (102 - (-101.9));
     var yfract = 1 - (my - (-102)) / (101.9 - (-102));
@@ -670,8 +699,7 @@ function showMenu() {
         document.getElementById("derethMenu").innerText = "Show Menu";
         document.getElementById("menuItems").style.display = 'none';
         //document.getElementById("iframeHolder").style.display = 'none';
-    }
-    else {
+    } else {
         displayMenu = true;
         document.getElementById("derethMenu").innerText = "Hide Menu";
         document.getElementById("menuItems").style.display = 'block';
@@ -682,8 +710,7 @@ function showMenu() {
 function showLandblockClicked() {
     if (document.getElementById("DisplayLandblockGrid").checked) {
         document.getElementById("mapAlpha").value = 5;
-    }
-    else {
+    } else {
         document.getElementById("mapAlpha").value = 0;
     }
 }
@@ -697,21 +724,21 @@ function copyToClipboard() {
     window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
 }
 
-(function ($) {
-    $.fn.disableSelection = function () {
-        return this.each(function () {
+(function($) {
+    $.fn.disableSelection = function() {
+        return this.each(function() {
             if (typeof this.onselectstart != 'undefined') {
-                this.onselectstart = function () { return false; };
+                this.onselectstart = function() { return false; };
             } else if (typeof this.style.MozUserSelect != 'undefined') {
                 this.style.MozUserSelect = 'none';
             } else {
-                this.onmousedown = function () { return false; };
+                this.onmousedown = function() { return false; };
             }
         });
     };
 })(jQuery);
 
-window.onload = function () {
+window.onload = function() {
     xcenter = document.getElementById("myCanvas").offsetWidth;
     ycenter = document.getElementById("myCanvas").offsetHeight;
     canvas = document.getElementById("myCanvas");
@@ -746,7 +773,7 @@ window.onload = function () {
     var mouseDown = false;
 
     // add button event listeners
-    document.getElementById("plus").addEventListener("click", function () {
+    document.getElementById("plus").addEventListener("click", function() {
         absoluteOffset.x = (translatePos.x - xcenter) / scale;
         absoluteOffset.y = (translatePos.y - ycenter) / scale;
 
@@ -760,7 +787,7 @@ window.onload = function () {
         draw();
     }, false);
 
-    document.getElementById("minus").addEventListener("click", function () {
+    document.getElementById("minus").addEventListener("click", function() {
         absoluteOffset.x = (translatePos.x - xcenter) / scale;
         absoluteOffset.y = (translatePos.y - ycenter) / scale;
 
@@ -772,14 +799,14 @@ window.onload = function () {
         draw();
     }, false);
 
-    document.getElementById("log").addEventListener("click", function () {
+    document.getElementById("log").addEventListener("click", function() {
 
         logLocation(canvas, scale, translatePos);
 
         draw();
     }, false);
 
-    document.getElementById("reset").addEventListener("click", function () {
+    document.getElementById("reset").addEventListener("click", function() {
         var coordinates = coordsFromLandblock(00, 00);
 
         translatePos = {
@@ -807,14 +834,14 @@ window.onload = function () {
     });
 
     // add event listeners to handle screen drag
-    canvas.addEventListener("mousedown", function (evt) {
+    canvas.addEventListener("mousedown", function(evt) {
         mouseDown = true;
         $('*').disableSelection();
         startDragOffset.x = evt.clientX - translatePos.x;
         startDragOffset.y = evt.clientY - translatePos.y;
     });
 
-    canvas.addEventListener("mouseup", function (evt) {
+    canvas.addEventListener("mouseup", function(evt) {
         mouseDown = false;
 
         // Get mouse position inside canvas screen (removes client side offsets)
@@ -843,6 +870,7 @@ window.onload = function () {
         block = getLandblock(mx, my);
         document.getElementById("LandblockInfo").innerHTML = "Landblock: " + block.x + " (0x" + block.x.toString(16) + ") " + block.y + " (0x" + block.y.toString(16) + ")";
     }
+
     function displayCoord(x, y) {
         var multiplier = Math.pow(10, 1 || 0);
         var roundedX = Math.round(x * multiplier) / multiplier;
@@ -851,14 +879,12 @@ window.onload = function () {
         var yWithCompass;
         if (roundedX > 0) {
             xWithCompass = Math.abs(roundedX).toString() + "E";
-        }
-        else if (roundedX < 0) {
+        } else if (roundedX < 0) {
             xWithCompass = Math.abs(roundedX).toString() + "W";
         }
         if (roundedY > 0) {
             yWithCompass = Math.abs(roundedY).toString() + "S";
-        }
-        else if (roundedY < 0) {
+        } else if (roundedY < 0) {
             yWithCompass = Math.abs(roundedY).toString() + "N";
         }
 
@@ -866,7 +892,7 @@ window.onload = function () {
         copyCoords = yWithCompass + ", " + xWithCompass;
 
     }
-    canvas.addEventListener("mousewheel", function (evt) {
+    canvas.addEventListener("mousewheel", function(evt) {
         if ((evt.wheelDelta / Math.abs(evt.wheelDelta)) >= 0) {
             absoluteOffset.x = (translatePos.x - evt.clientX) / scale;
             absoluteOffset.y = (translatePos.y - evt.clientY) / scale;
@@ -877,8 +903,7 @@ window.onload = function () {
             translatePos.y = (scale * absoluteOffset.y) + evt.clientY;
 
             draw();
-        }
-        else {
+        } else {
             absoluteOffset.x = (translatePos.x - evt.clientX) / scale;
             absoluteOffset.y = (translatePos.y - evt.clientY) / scale;
 
@@ -890,7 +915,7 @@ window.onload = function () {
             draw();
         }
     });
-    canvas.addEventListener("DOMMouseScroll", function (evt) {
+    canvas.addEventListener("DOMMouseScroll", function(evt) {
         var delta = evt.wheelDelta ? evt.wheelDelta : -evt.detail;
         console.log(evt);
         if (delta >= 0) {
@@ -903,8 +928,7 @@ window.onload = function () {
             translatePos.y = (scale * absoluteOffset.y) + evt.clientY;
 
             draw();
-        }
-        else {
+        } else {
             absoluteOffset.x = (translatePos.x - evt.clientX) / scale;
             absoluteOffset.y = (translatePos.y - evt.clientY) / scale;
 
@@ -916,15 +940,15 @@ window.onload = function () {
             draw();
         }
     });
-    canvas.addEventListener("mouseover", function (evt) {
+    canvas.addEventListener("mouseover", function(evt) {
         mouseDown = false;
     });
 
-    canvas.addEventListener("mouseout", function (evt) {
+    canvas.addEventListener("mouseout", function(evt) {
         mouseDown = false;
     });
 
-    canvas.addEventListener("mousemove", function (evt) {
+    canvas.addEventListener("mousemove", function(evt) {
         if (mouseDown) {
             translatePos.x = evt.clientX - startDragOffset.x;
             translatePos.y = evt.clientY - startDragOffset.y;
@@ -932,7 +956,7 @@ window.onload = function () {
         }
     });
 
-    myCanvas.addEventListener('dblclick', function (evt) {
+    myCanvas.addEventListener('dblclick', function(evt) {
         absoluteOffset.x = (translatePos.x - xcenter) / scale;
         absoluteOffset.y = (translatePos.y - ycenter) / scale;
 
@@ -949,8 +973,8 @@ window.onload = function () {
 
     getPoints();
     getDynamicPlayers();
-    setInterval(function () { draw(); }, 1500);
-    setInterval(function () { getDynamicPlayers(); }, 1800);
+    setInterval(function() { draw(); }, 1500);
+    setInterval(function() { getDynamicPlayers(); }, 1800);
 };
 
 

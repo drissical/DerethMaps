@@ -17,7 +17,8 @@
     <img src="images/derethMapsLogo.png" alt="derethMaps Logo" style="height:35px;" />
     <br />
     <div id="wrapper" style="float:left; height: 85vh;">
-        <div style="position:absolute; color:white;">
+        <div id="DerethMapControls" style="position:absolute; color:white;">
+            <!--<div id="dmc_left">-->
             <button id="derethMenu" onclick="showMenu()">Hide Menu</button>
             <button onclick="clearSelection();">Clear Selection</button>
             <button onclick="copyToClipboard();">Copy Coords</button>
@@ -61,6 +62,16 @@
                 <p id="Coordinates"></p>
                 <p id="CollisionInfo"></p>
             </div>
+            <!--</div>
+            <div id="dmc_right">-->
+            <div id="PlayerList">
+                <div>Player List:</div>
+                <select id="Players">
+
+                </select>
+            </div>
+            <!--</div>-->
+            <!--<br style="clear:both;" />-->
         </div>
         <canvas id="myCanvas" style="background-color:#1F2B3D"></canvas>
         <div id="buttonWrapper" style="background-color: lightgray; text-align:center;">
